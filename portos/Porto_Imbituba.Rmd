@@ -40,7 +40,8 @@ attr <- data.frame(descricao = "Área do Porto Organizado de Imbituba",
                    portaria = 557,
                    data = as.Date("27/09/2019", format = "%d/%m/%Y"),
                    fonte = "http://infraestrutura.gov.br/images/arquivos-poligonais-das-areas-dos-portos-organizados/imbituba.zip",
-                   data_acesso = as.Date("30/01/2020", format = "%d/%m/%Y")
+                   data_acesso = as.Date("30/01/2020", format = "%d/%m/%Y"),
+                   obs = NA
                    )
 #
 # 4. União dos atributos à geometria

@@ -44,7 +44,8 @@ attr <- data.frame(descricao = "Área do Porto Organizado de São Francisco do S
                    portaria = 500,
                    data = as.Date("05/07/2019", format = "%d/%m/%Y"),
                    fonte = "http://infraestrutura.gov.br/images/arquivos-poligonais-das-areas-dos-portos-organizados/sao-francisco-do-sul.zip",
-                   data_acesso = as.Date("25/07/2019", format = "%d/%m/%Y")
+                   data_acesso = as.Date("25/07/2019", format = "%d/%m/%Y"),
+                   obs = NA
                    )
 #
 # 4. União dos atributos à geometria
