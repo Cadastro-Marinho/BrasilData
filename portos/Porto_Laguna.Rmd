@@ -14,16 +14,6 @@ library(sf)
 library(leaflet)
 ```
 
-## Conectar ao Banco de Dados Espacial
-
-```{r, echo=FALSE}
-conn <- dbConnect("PostgreSQL",
-                  host = "localhost", 
-                  dbname = "spugeo",
-                  user = "postgres", 
-                  password = "campeao1")
-```
-
 ## Criar objeto
 
 ```{r}
@@ -32,21 +22,23 @@ conn <- dbConnect("PostgreSQL",
 #
 # 1.1 Leitura das poligonais em KML
 #  
-anexo_i <- st_read("laguna/poligonal.kml", layer = "Anexo I") %>% st_zm()
-anexo_ii <- st_read("laguna/poligonal.kml", layer = "Anexo II") %>% st_zm()
+anexo_i <- st_read("laguna/Anexo_I.kml") %>% st_zm()
+anexo_ii <- st_read("laguna/Anexo_II.kml") %>% st_zm()
 #
 # 1.2 Junção dos polígonos
-pl <- st_sfc(st_multipolygon(
+mpl <- st_sfc(st_multipolygon(
   list(list(st_coordinates(anexo_i)), 
        list(st_coordinates(anexo_ii))
        )
   )
   )
 #
-# 2. Criação dos atributos  
+# 1.2 Junção dos polígonos
+#
+mpl <- st_sf(geometry = st_combine(rbind(anexo_i, anexo_ii)))
 #
 attr <- data.frame(descricao = "Área do Porto Organizado de Laguna",
-                   area = st_area(pl),
+                   area = st_area(mpl),
                    municipio = 8185,
                    portaria = 587,
                    data = as.Date("05/12/2019", format = "%d/%m/%Y"),
@@ -57,8 +49,7 @@ attr <- data.frame(descricao = "Área do Porto Organizado de Laguna",
 # 4. União dos atributos à geometria
 #
 spl_df <- st_sf(attr,
-                geometry = pl,
-                crs = 4326)
+                geometry = st_geometry(mpl))
 ```
 
 ## Exportar
